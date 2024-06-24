@@ -1,0 +1,87 @@
+ul{ margin:0; padding:0;}
+
+.rightsec{ background:none 1px -1px no-repeat; float:left;}
+.enquire{ width:100%; border:0% solid red; float:left; padding-top:0%;}
+.enquire ul li{ list-style:none;}
+.enquire h2{ font-size:26px; color:#004e90; font-weight:normal; margin-left:36px; }
+.enquire ul{ padding-left:0px;}
+.textbox{
+	width:100%;
+	height:40px;
+	font-size:14px;
+	font-weight:bold;
+	text-indent:6px;
+	padding-left:0px;
+	padding-top:0;
+	padding-right:0px;
+	font:bold 14px  inherit;
+	line-height:41px;
+	border:2px solid #02a69f;
+	background:none;
+	color:#02a69f;
+	padding-left:0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	margin-bottom: 10px;
+	
+}
+
+
+.textarea{
+	width:100%;
+	height:100px;
+	border:2px solid #02a69f;
+	color:#02a69f ;
+	background:#fff;
+	padding-left:0px;
+	padding-right:0px;
+	font:bold 14px Calibri;
+	line-height:18px;
+	background:none;
+font-family: inherit;
+	padding-left:6px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+}
+
+.enquire form li{ position:relative; margin-top:0px; line-height:18px !important; }
+.enquire label  { position:absolute;   top:-10px; left:0px; color:#FF0000;  font-weight:bold; font-size:14px;}
+
+.btn{background:#02a69f; line-height: 24px; font-size:16px; color:#05003e; border-radius:0; font-weight:bold; border:2px solid #02a69f; padding: 12px 0px 12px 0px;}
+.btn:hover{background:none; color:#02a69f; border:2px solid #02a69f;}
+.enquire li.error input {
+	border:2px solid red;
+	background: url(../img/required-text.png) 99% no-repeat;
+ 
+	padding-left:5px ;
+}
+.clear{clear:both;}
+.xxxxx{width:auto; padding-top:50px;}
+.pop-enqry{
+ font-size:16px;
+ font-weight:bold;
+background: #ffb76b; /* Old browsers */
+background: -moz-linear-gradient(top, #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(50%,#ffa73d), color-stop(51%,#ff7c00), color-stop(100%,#ff7f04)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* IE10+ */
+background: linear-gradient(to bottom, #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+  color:#FFFFFF;
+  float:right;
+  padding:4px 10px 4px 10px;
+  border-radius:10px;
+  height:auto;
+  border:1px #FF6600 000000;
+  }
+.pop-enqry:hover{
+ text-decoration:none;
+ background:#FF6600;
+ color:#FFFF00;
+ }
+
+

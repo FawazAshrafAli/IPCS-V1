@@ -1,0 +1,92 @@
+{% extends "base.html" %}  
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'warrantied_products' %}" role="link" aria-controls="overview" aria-selected="False">Warrantied products</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'warrantied_product' warrantied_product.pk %}" role="link" aria-controls="overview" aria-selected="true">Warrantied Product</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'update_warranty' warrantied_product.pk %}" role="tab" aria-controls="overview" aria-selected="true">Update Warrantied Product</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Updation Form -->
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Update Warranty</h4>
+      <form name="formA" method="POST" action="{% url 'update_warranty' warrantied_product.pk %}"  onsubmit="return warrantyValidate()">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="customer_name">Customer Name</label>
+              <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Customer Name" value="{{ warrantied_product.customer_name}}" required>
+              <span id="namee" style="color:red;";></span>
+            </div>
+            <div class="form-group">                
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" name="date" value="{{ date }}" required>
+            </div>
+            <div class="form-group">
+              <label for="email_id">Email ID</label>
+              <input type="email" class="form-control" id="email_id" name="email_id" placeholder="Email ID" value="{{ warrantied_product.email_id}}" required>
+            </div>
+            <div class="form-group">
+              <label for="contact_number">Contact Number</label>
+              <input type="tel" class="form-control" id="contact_number" name="contact_number" pattern="[0-9]+" title="Please enter only numeric characters" placeholder="Contact Number" value="{{ warrantied_product.contact_number}}" required>
+            </div>
+            <div class="form-group">
+              <label for="alternative_number">Alternative Number</label>
+              <input type="tel" class="form-control" id="alternative_number" name="alternative_number" pattern="[0-9]+" title="Please enter only numeric characters" placeholder="Alternative Number" value="{{ warrantied_product.alternative_number}}">
+            </div>
+            <label class="form-label" for="product_id">Product Name</label>
+            <select class="form-control" name="product_id" id="product_id" value="{{ warrantied_product.product}}">
+              <option hidden>--- Select a product ---</option>
+              {% for product in products %}
+              <option value="{{product.id}}" {% if product.id == warrantied_product.product.id %} selected {% endif %}>{{product.name}}</option>
+              {% endfor %}
+            </select>
+            <span id="pro" style="color:red"></span>
+          </div>
+          <div class="col-lg-6">                        
+            <div class="form-group">
+              <label for="billing_name">Billing Name</label>
+              <input type="text" class="form-control" id="billing_name" name="billing_name" placeholder="Billing Name" value="{{ warrantied_product.billing_name}}" required>
+            </div>
+            <div class="form-group">
+              <label for="invoice_number">Invoice Number</label>
+              <input type="text" class="form-control" id="invoice_number" name="invoice_number" placeholder="Invoice Number" value="{{ warrantied_product.invoice_number}}" required>
+            </div>
+            <div class="form-group">
+              <label for="serial_number">Serial Number</label>
+              <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="Serial Number" value="{{ warrantied_product.serial_number}}" required>
+            </div>
+            <div class="form-group">
+              <label for="model_number">Model Number</label>
+              <input type="text" class="form-control" id="model_number" name="model_number" placeholder="Model Number" value="{{ warrantied_product.model_number}}" required>
+            </div>
+            <div class="form-group">
+              <label for="duration">Warranty Duration</label>
+              <input type="number" class="form-control" id="duration" name="duration" placeholder="Warranty Duration" value="{{ warrantied_product.duration}}" required>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success me-2">Update Warranty</button>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock content %}

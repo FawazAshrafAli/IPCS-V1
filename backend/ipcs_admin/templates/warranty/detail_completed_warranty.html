@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'completed_warranties' %}" role="link" aria-controls="overview" aria-selected="false">Completed Warranties</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'completed_warranty' completed_warranty.pk %}" role="tab" aria-controls="overview" aria-selected="true">Completed Warranty</a>
+  </li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Warranty ID: {{completed_warranty.warranty_id}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">              
+                <tr>
+                    <th>Application Date and time</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.application_date}}</td>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.customer_name}}</td>
+                </tr>
+                <tr>
+                    <th>Purchase Date</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.purchase_date}}</td>
+                </tr>
+                <tr>
+                    <th>Warranty Duration</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.duration}}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.contact_number}}</td>
+                </tr>
+                <tr>
+                    <th>Email ID</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.email_id}}</td>
+                </tr>
+                <tr>
+                    <th>Alternative Number</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.alternative_number}}</td>
+                </tr>
+                <tr>
+                    <th>Billing Name</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.billing_name}}</td>
+                </tr>
+                <tr>
+                    <th>Invoice Number</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.invoice_number}}</td>
+                </tr>
+                <tr>
+                    <th>Serial Number</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.serial_number}}</td>
+                </tr>
+                <tr>
+                    <th>Model Number</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.model_number}}</td>
+                </tr>
+                <tr>
+                    <th>Expiry Date</th>
+                    <td>:</td>
+                    <td>{{completed_warranty.expiry_date}}</td>
+                </tr>
+                <tr>
+                    <th>Product Complain</th>
+                    <td>:</td>
+                    <td style="text-wrap: wrap;">{{completed_warranty.product_complain}}</td>
+                </tr>           
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

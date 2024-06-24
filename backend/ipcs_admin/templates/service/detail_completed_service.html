@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'completed_services' %}" role="link" aria-controls="overview" aria-selected="false">Completed Services</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'completed_service' completed_service.pk %}" role="tab" aria-controls="overview" aria-selected="true">Completed Service</a>
+  </li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Service ID: {{completed_service.pk}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">
+              
+              <tr>
+                <th colspan=3 class="text-primary text-uppercase">Service Request Details</th>                
+              </tr>
+
+              <tr>
+                <th>Customer Name</th>
+                <td>:</td>
+                <td>{{completed_service.customer_name}}</td>
+              </tr>
+              <tr>
+                <th>Email ID</th>
+                <td>:</td>
+                <td>{{completed_service.email}}</td>
+              </tr>
+              <tr>
+                <th>Contact Number</th>
+                <td>:</td>
+                <td>{{completed_service.contact_number}}</td>
+              </tr>
+              <tr>
+                <th>Alternative Number</th>
+                <td>:</td>
+                <td>{{completed_service.alternative_number}}</td>
+              </tr>
+              <tr>
+                <th>Requested Date/time</th>
+                <td>:</td>
+                <td>{{completed_service.application_datetime}}</td>
+              </tr>              
+              <tr>
+                <th>Address of Site</th>
+                <td>:</td>
+                <td>{{completed_service.address_site}}</td>
+              </tr>
+              <tr>
+                <th>Product Name</th>
+                <td>:</td>
+                <td>{{completed_service.item_name}}</td>
+              </tr>              
+              <tr>
+                <th>preffered_date</th>
+                <td>:</td>
+                <td>{{completed_service.prefered_date}}</td>
+              </tr>
+              <tr>
+                <th>Serial Number</th>
+                <td>:</td>
+                <td>{{completed_service.serial_number}}</td>
+              </tr>
+              <tr>
+                <th>Bussiness Name</th>
+                <td>:</td>
+                <td>{{completed_service.bussiness_name}}</td>
+              </tr>
+              <tr>
+                <th>Service Description</th>
+                <td>:</td>
+                <td>{{completed_service.service_description}}</td>
+              </tr>
+
+              <tr>
+                <th colspan=3 class="text-primary text-uppercase">Service Details</th>                
+              </tr>
+
+              <tr>
+                  <th>Service Date</th>
+                  <td>:</td>
+                  <td>{{completed_service.service_date}}</td>
+              </tr>
+              <tr>
+                  <th>Technician</th>
+                  <td>:</td>
+                  <td>{{completed_service.technician}}</td>
+              </tr>
+              <tr>
+                  <th>Starting Time</th>
+                  <td>:</td>
+                  <td>{{completed_service.starting_time}}</td>
+              </tr>
+              <tr>
+                  <th>Ending Time</th>
+                  <td>:</td>
+                  <td>{{completed_service.ending_time}}</td>
+              </tr>                
+            </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

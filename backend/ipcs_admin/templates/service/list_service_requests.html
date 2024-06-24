@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'service_requests' %}" role="tab" aria-controls="overview" aria-selected="true">Service Requests</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!-- Messages -->
+        <div id="message-div">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+        
+        {% if service_requests %}
+        <h4 class="card-title">Service Requests</h4> 
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                  <th>Application Date/Time</th>
+                  <th>Application ID</th>
+                  <th>Customer Name</th>
+                  <th>Contact Number</th>
+                  <th>Alternative Number</th>
+                  <th>Email ID</th>                                    
+                  <th>Item Name</th>
+                  <th>Serial Number</th>                  
+                  <th>Preffered Date</th>
+                  <th>Service Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for service_request in service_requests %}
+              <tr id="link-table" onclick="window.location='{% url 'service_request' service_request.pk %}'">
+                  <td>{{service_request.application_datetime}}</td>
+                  <td>{{service_request.pk}}</td>
+                  <td>{{service_request.customer_name}}</td>
+                  <td>{{service_request.contact_number}}</td>
+                  <td>{{service_request.alternative_number}}</td>
+                  <td>{{service_request.email}}</td>                                    
+                  <td>{{service_request.item_name}}</td>
+                  <td>{{service_request.serial_number}}</td>                  
+                  <td>{{service_request.prefered_date}}</td>
+                  <td>{{service_request.service_description}}</td>
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+            <div class="text-center text-danger text-uppercase">
+                <h5>No Service Request</h5>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

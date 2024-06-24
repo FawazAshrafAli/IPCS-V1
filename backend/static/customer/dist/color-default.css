@@ -1,0 +1,31 @@
+/*
+ Default: #ff8400;
+ */
+
+h1,
+a {
+	color: #ff8400;
+}
+
+.Button,
+.Form__control {
+	    color: #ffffff;
+    background: #3c9b00;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.Button {
+	  color: #ffffff;
+	      font-size: 14px;
+}
+
+.Button:focus,
+.Button:hover {
+	background: #ff8400;
+	color: #fff;
+}
+
+.Form__control:focus {
+	border-color: #ddd;
+}

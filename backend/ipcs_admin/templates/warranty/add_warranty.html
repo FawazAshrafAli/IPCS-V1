@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link active" id="product-tab" data-bs-toggle="tab" href="{% url 'add_warranty' %}" role="tab" aria-selected="false">Add Warranty</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add Warranty</h4>
+      <!-- Messages -->
+      <div id="message-div">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+      </div>
+      <form name="formA" action="{% url 'add_warranty' %}" class="forms-sample" method="POST" onsubmit="return warrantyValidate()">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="customer_name">Customer Name</label>
+              <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Customer Name" {% if customer_name %} value="{{customer_name}}" {% endif %} required>
+              <span id="namee" style="color:red;";></span>
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" name="date" {% if default_date %} value="{{default_date}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="email_id">Email ID</label>
+              <input type="email" class="form-control" id="email_id" name="email_id" placeholder="Email ID" {% if email_id %} value="{{email_id}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="contact_number">Contact Number</label>
+              <input type="tel" class="form-control" id="contact_number" name="contact_number" pattern="[0-9]+" title="Please enter only numeric characters" placeholder="Contact Number" {% if contact_number %} value="{{contact_number}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="alternative_number">Alternative Number</label>
+              <input type="tel" class="form-control" id="alternative_number" name="alternative_number" pattern="[0-9]+" title="Please enter only numeric characters" {% if alternative_number %} value="{{alternative_number}}" {% endif %} placeholder="Alternative Number">
+            </div>
+            <label class="form-label" for="product_id">Product Name</label>            
+            <select class="form-control" name="product_id" id="product_id">
+              <option value="" selected disabled >--- Select a product ---</option>
+              {% for product in products %}
+              <option value="{{product.id}}" {% if product_id %} selected {% endif %}>{{product.name}}</option>
+              {% endfor %}
+            </select>
+            <span id="pro" style="color:red"></span>
+          </div>
+          <div class="col-lg-6">                        
+            <div class="form-group">
+              <label for="billing_name">Billing Name</label>
+              <input type="text" class="form-control" id="billing_name" name="billing_name" placeholder="Billing Name" {% if billing_name %} value="{{billing_name}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="invoice_number">Invoice Number</label>
+              <input type="text" class="form-control" id="invoice_number" name="invoice_number" placeholder="Invoice Number" {% if invoice_number %} value="{{invoice_number}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="serial_number">Serial Number</label>
+              <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="Serial Number" required>
+            </div>
+            <div class="form-group">
+              <label for="model_number">Model Number</label>
+              <input type="text" class="form-control" id="model_number" name="model_number" placeholder="Model Number" {% if model_number %} value="{{model_number}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="duration">Warranty Duration</label>
+              <input type="number" class="form-control" id="duration" name="duration" placeholder="Warranty Duration" {% if duration %} value="{{duration}}" {% endif %} required>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary me-2">Add Warranty</button>
+        </div>
+      </form>
+    </div>
+</div>
+
+{% endblock content %}

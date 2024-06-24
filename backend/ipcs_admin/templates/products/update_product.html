@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link" id="product-tab" data-bs-toggle="link" href="{% url 'products' %}" role="link" aria-selected="false">Products</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link ps-0" id="product-detail-tab" data-bs-toggle="link" href="{% url 'product' product.pk %}" role="link" aria-selected="false">{{product.name}}</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="product-detail-tab" data-bs-toggle="tab" href="{% url 'update_product' product.pk %}" role="tab" aria-controls="overview" aria-selected="true">Updating {{product.name}}</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<!-- Form -->
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Update Product</h4>
+      <form name="productForm" class="forms-sample" method="POST" enctype="multipart/form-data" onsubmit="return productValidate()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="product_name">Product Name</label>
+          <input type="text" class="form-control" id="product_name" name="product_name" value="{{product.name}}" placeholder="Product Name" required>
+          <span id="product_namee" style="color:red;";></span>
+        </div>
+        <div class="form-group">
+          <label for="image">Product Image</label>
+          <input type="file" class="form-control" id="image" name="image" value="{{product.name}}" placeholder="Product Image" required>
+        </div>
+        <div class="form-group">
+          <label for="link">Link</label>
+          <input type="url" class="form-control" id="link" name="link" placeholder="Product Link" value="{{product.link}}">
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Update Product</button>
+        <a href="{% url 'products' %}" class="btn btn-light">Cancel</a>
+      </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,123 @@
+{% extends "customer_base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'warranty_history' %}" role="tab" aria-controls="overview" aria-selected="true">Warranty History</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<!-- Table -->
+<div class="col-lg-12 grid-margin stretch-card px-2">
+  <div class="card">
+    <div class="card-body">
+        {% if not claimed_warranties and not approved_warranties and not warranty_applications %}
+        <div class="text-center text-danger text-uppercase">
+            <h5>No Warranty History</h5>
+        </div>
+        {% endif %}
+
+        <!-- Claimed Warranty -->
+      {% if claimed_warranties %}
+      <div class="table-responsive">
+        <table class="table">
+            <thead> 
+                <tr class="text-center text-uppercase">
+                    <th colspan="4">Claimed Warranties</th>
+                </tr>               
+                <tr>
+                    <th>Warranty ID</th>
+                    <th>Claim Approved Date</th>
+                    <th>Product</th>
+                    <th>Serial Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for claimed_warranty in claimed_warranties %}
+                <tr>
+                    <td>{{claimed_warranty.warranty_id}}</td>
+                    <td>{{claimed_warranty.approved_datetime.date}}</td>
+                    <td>{{claimed_warranty.product}}</td>
+                    <td>{{claimed_warranty.serial_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      <br/>
+      {% endif %}
+      <!-- End Claimed Warranty -->
+
+        <!-- Approved Warranty -->
+        {% if approved_warranties %}
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr class="text-center text-uppercase">
+                    <th colspan="4">Approved Warranties</th>
+                </tr>
+                <tr>
+                    <th>Warranty ID</th>
+                    <th>Approved Date/Time</th>
+                    <th>Product</th>
+                    <th>Serial Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for approved_warranty in approved_warranties %}
+                  <tr>
+                      <td>{{approved_warranty.id}}</td>
+                      <td>{{approved_warranty.approved_datetime}}</td>
+                      <td>{{approved_warranty.product}}</td>
+                      <td>{{approved_warranty.serial_number}}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <br/>
+        {% endif %}
+        <!-- End Approved Warranty -->
+
+        <!-- Warranty Application -->
+        {% if warranty_applications %}
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr class="text-center text-uppercase">
+                    <th colspan="4">Warranty Applications</th>
+                </tr>
+                  <tr>
+                      <th>Warranty ID</th>
+                      <th>Application Date/Time</th>
+                      <th>Product</th>
+                      <th>Serial Number</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for warranty_application in warranty_applications %}
+                  <tr>
+                      <td>{{warranty_application.id}}</td>
+                      <td>{{warranty_application.application_date}}</td>
+                      <td>{{warranty_application.product}}</td>
+                      <td>{{warranty_application.serial_number}}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        {% endif %}
+        <!-- Warranty Application -->
+
+    </div>
+  </div>
+</div>
+{% endblock content %}

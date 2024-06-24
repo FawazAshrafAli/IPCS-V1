@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link" id="product-tab" data-bs-toggle="link" href="{% url 'clients' %}" role="link" aria-selected="false">Clients</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link ps-0" id="product-detail-tab" data-bs-toggle="link" href="{% url 'client' client.pk %}" role="link" aria-selected="false">{{client.name}}</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="product-detail-tab" data-bs-toggle="tab" href="{% url 'update_client' client.pk %}" role="tab" aria-controls="overview" aria-selected="true">Updating {{client.name}}</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<!-- Form -->
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Update Client</h4>
+      <form name="clientForm" class="forms-sample" method="POST" enctype="multipart/form-data" onsubmit="return clientValidate()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Client Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{client.name}}" placeholder="Product Client" required>
+          <span id="namee" style="color:red;";></span>
+        </div>
+        <div class="form-group">
+          <label for="image">Client Image</label>
+          <input type="file" class="form-control" id="image" name="image" value="{{product.name}}" placeholder="Client Image" required>
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Update Client</button>
+        <a href="{% url 'products' %}" class="btn btn-light">Cancel</a>
+      </form>
+    </div>
+</div>
+{% endblock content %}

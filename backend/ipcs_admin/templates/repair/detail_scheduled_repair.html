@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'scheduled_repairs' %}" role="link" aria-controls="overview" aria-selected="false">Scheduled Repairs</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'scheduled_repair' scheduled_repair.pk %}" role="tab" aria-controls="overview" aria-selected="true">Scheduled Repair</a>
+  </li>
+{% endblock page-heading %}
+{% block blue-btn %}
+<div class="d-flex">
+
+  <div class="btn-wrapper d-flex me-0 ">
+    <a href="{% url 'update_scheduled_repair' scheduled_repair.pk %}" class="btn btn-warning" id="update-btn" style="display: none;">Update</a>
+    <button class="btn btn-danger" id="delete-btn" onclick="document.getElementById('confirm-deletion').style.display='block'" style="display: none;">Delete</button>
+    <button class="btn btn-info" id="edit-toggle-btn" onclick="responsiveEditionDiv()">Edit</button>
+  </div>
+  <div>
+    <a href="{% url 'complete_repair' scheduled_repair.pk %}" class="btn btn-success">Completed</a>
+  </div>
+</div>
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Repair ID: <a href="{% url 'repair_request' scheduled_repair.id %}">{{scheduled_repair.id}}</a></h4>
+        <div class="table-responsive">
+            <table class="table table-sm">            
+                <tr>
+                    <th>Repair ID</th>
+                    <td>:</td>
+                    <td>{{scheduled_repair.repair_request}}</td>
+                </tr>
+                <tr>
+                    <th>Repair Date</th>
+                    <td>:</td>
+                    <td>{{scheduled_repair.repair_date}}</td>
+                </tr>
+                <tr>
+                    <th>Technician</th>
+                    <td>:</td>
+                    <td>{{scheduled_repair.technician}}</td>
+                </tr>
+                <tr>
+                    <th>Starting Time</th>
+                    <td>:</td>
+                    <td>{{scheduled_repair.starting_time}}</td>
+                </tr>
+                <tr>
+                    <th>Ending Time</th>
+                    <td>:</td>
+                    <td>{{scheduled_repair.ending_time}}</td>
+                </tr>                
+            </table>
+        </div>  
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- confirm deletion box -->
+<div class="position-absolute border shadow shadow-danger px-3 pt-3" id="confirm-deletion" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+  <h4 class="text-danger">Deleting scheduled repair request</h4>
+  <hr/>
+  <h6>Are your sure?</h6>
+  <div class="d-flex justify-content-between mt-4">
+    <a class="btn btn-danger text-light" href="{% url 'delete_scheduled_repair' scheduled_repair.pk %}" style="width: 75px;">Delete</a>
+    <button type="button" class="btn btn-primary text-light" data-dismiss="modal" onclick="document.getElementById('confirm-deletion').style.display='none'" style="width: 75px;">Cancel</button>
+  </div>
+</div>
+<script>
+  function responsiveEditionDiv() {
+      var deleteBtnDisplay = document.getElementById('delete-btn').style.display
+      var updateBtnDisplay = document.getElementById('update-btn').style.display
+      if (deleteBtnDisplay == 'none' && updateBtnDisplay == 'none'){
+          document.getElementById('delete-btn').style.display='block';
+          document.getElementById('update-btn').style.display='block';
+          document.getElementById('edit-toggle-btn').innerHTML='Cancel';
+          document.getElementById('edit-toggle-btn').className+='btn btn-light';
+      } else {
+          document.getElementById('delete-btn').style.display='none';
+          document.getElementById('update-btn').style.display='none';
+          document.getElementById('edit-toggle-btn').innerHTML='Edit';
+          document.getElementById('edit-toggle-btn').className+='btn btn-info';
+      }
+
+  }
+</script>
+{% endblock content %}

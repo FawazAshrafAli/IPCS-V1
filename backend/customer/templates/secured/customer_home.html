@@ -1,0 +1,26 @@
+{% extends "customer_base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'customer_home' %}" role="tab" aria-controls="overview" aria-selected="true">Home</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<!-- Table -->
+<div class="col-lg-12 grid-margin stretch-card px-2">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="capitalizer text-center text-uppercase">Welcome to IPCS Customer home page.</h3>
+    </div>
+  </div>
+</div>
+{% endblock content %}

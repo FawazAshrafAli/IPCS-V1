@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link" id="product-tab" data-bs-toggle="link" href="{% url 'clients' %}" role="link" aria-selected="false">Clients</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="add-product-tab" data-bs-toggle="tab" href="{% url 'add_client' %}" role="tab" aria-controls="overview" aria-selected="true">Add Clients</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add Client</h4>
+      <form name="clientForm" class="forms-sample" method="POST" enctype="multipart/form-data" onsubmit="return clientValidate()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Client Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Client Name" required>
+          <span id="namee" style="color:red;";></span>
+        </div>
+        <div class="form-group">
+          <label for="image">Client Image</label>
+          <input type="file" class="form-control" id="image" name="image" placeholder="Client Image" required>
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Add Client</button>
+        <a href="{% url 'clients' %}" class="btn btn-light">Cancel</a>
+      </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'warranty_applications' %}" role="link" aria-controls="overview" aria-selected="false">Warranty Applications</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'warranty_application' application.pk %}" role="tab" aria-controls="overview" aria-selected="true">Details of Warranty Application</a>
+  </li>
+{% endblock page-heading %}
+{% block blue-btn %}
+<a class="btn btn-primary text-white me-0" href="{% url 'approve_warranty' application.pk %}">Approve Warranty</a> 
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Warranty ID: {{application.pk}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">            
+                <tr>
+                    <th>Application Date and time</th>
+                    <td>:</td>
+                    <td>{{application.application_date}}</td>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <td>:</td>
+                    <td>{{application.customer_name}}</td>
+                </tr>
+                <tr>
+                    <th>Purchase Date</th>
+                    <td>:</td>
+                    <td>{{application.purchase_date}}</td>
+                </tr>
+                <tr>
+                    <th>Warranty Duration</th>
+                    <td>:</td>
+                    <td>{{application.duration}}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td>:</td>
+                    <td>{{application.contact_number}}</td>
+                </tr>
+                <tr>
+                    <th>Email ID</th>
+                    <td>:</td>
+                    <td>{{application.email_id}}</td>
+                </tr>
+                <tr>
+                    <th>Alternative Number</th>
+                    <td>:</td>
+                    <td>{{application.alternative_number}}</td>
+                </tr>
+                <tr>
+                    <th>Billing Name</th>
+                    <td>:</td>
+                    <td>{{application.billing_name}}</td>
+                </tr>
+                <tr>
+                    <th>Invoice Number</th>
+                    <td>:</td>
+                    <td>{{application.invoice_number}}</td>
+                </tr>
+                <tr>
+                    <th>Serial Number</th>
+                    <td>:</td>
+                    <td>{{application.serial_number}}</td>
+                </tr>
+                <tr>
+                    <th>Model Number</th>
+                    <td>:</td>
+                    <td>{{application.model_number}}</td>
+                </tr>
+                <tr>
+                    <th>Expiry Date</th>
+                    <td>:</td>
+                    <td>{{application.expiry_date}}</td>
+                </tr>
+                <tr>
+                    <th>Product Complain</th>
+                    <td>:</td>
+                    <td>{{application.product_complain}}</td>
+                </tr>                
+            </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

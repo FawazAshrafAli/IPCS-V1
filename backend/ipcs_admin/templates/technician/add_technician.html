@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link" id="product-tab" data-bs-toggle="link" href="{% url 'technicians' %}" role="link" aria-selected="false">Technicians</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="add-product-tab" data-bs-toggle="tab" href="{% url 'add_technician' %}" role="tab" aria-controls="overview" aria-selected="true">Add Technician</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add Technician</h4>
+      <form name="technicianForm" class="forms-sample form" method="POST" enctype="multipart/form-data" onsubmit="return technicianValidate()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Technician Name">
+          <span id="namee" style="color:red;";></span>
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email ID</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email Id" required>
+        </div>
+        <div class="form-group">
+            <label for="mobile" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobile" name="mobile" pattern="[0-9]+" title="Please enter only numeric characters" placeholder="Mobile Number" required>
+        </div>
+        <div class="form-group">
+          <label for="department" class="form-label">Department</label>
+          <input type="text" class="form-control" id="department" name="department" placeholder="Department" required>
+        </div>
+        <label for="residential_location" class="form-label">Residential Location</label>          
+        <div class="form-group">
+          <textarea class="textarea w-100" name="residential_location" id="residential_location" cols="30" rows="5" placeholder="Residential Location" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="photo" class="form-label">Photo</label>
+          <input type="file" class="form-control" name="photo" id="photo" required>    
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary me-2">Add Technician</button>
+        </div>
+      </form>      
+    </div>
+</div>
+{% endblock content %}

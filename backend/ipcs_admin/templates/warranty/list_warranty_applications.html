@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'warranty_applications' %}" role="tab" aria-controls="overview" aria-selected="true">Warranty Applications</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!-- Messages -->
+        <div id="message-div">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+        
+        {% if applications %}
+        <h4 class="text-uppercase">Warranty Applications</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                  <th>Application Date</th>
+                  <th>Customer Name</th>
+                  <th>Contact Number</th>
+                  <th>Email ID</th>
+                  <th>Billing Name</th>
+                  <th>Invoice Number</th>
+                  <th>Serial Number</th>
+                  <th>Model Number</th>
+                  <th>Expiry Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for application in applications %}
+              <tr id="link-table" onclick="window.location='{% url 'warranty_application' application.pk %}'">
+                  <td>{{application.application_date}}</td>
+                  <td>{{application.customer_name}}</td>
+                  <td>{{application.contact_number}}</td>
+                  <td>{{application.email_id}}</td>
+                  <td>{{application.billing_name}}</td>
+                  <td>{{application.invoice_number}}</td>
+                  <td>{{application.serial_number}}</td>
+                  <td>{{application.model_number}}</td>
+                  <td>{{application.expiry_date}}</td>
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+            <div class="text-center text-danger text-uppercase">
+                <h5>No warranty application</h5>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

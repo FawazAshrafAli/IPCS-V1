@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'technicians' %}" role="link" aria-controls="overview" aria-selected="true">Technicians</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'technician' technician.pk %}" role="tab" aria-controls="overview" aria-selected="true">Technician - {{technician.name}} / {{technician.department}}</a>
+  </li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mx-3">
+            <img src="{{technician.photo.url}}" alt="technician's image" alt="image" height="75px">
+            <div>
+                <a class="btn btn-warning" href="{% url 'update_technician' technician.pk %}">Update</a>
+                <button class="btn btn-danger" onclick="document.getElementById('confirm-deletion').style.display='block'">Delete</button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm">            
+                <tr>
+                    <th>Name</th>
+                    <td>:</td>
+                    <td>{{technician.name}}</td>
+                </tr>
+                <tr>
+                    <th>Email ID</th>
+                    <td>:</td>
+                    <td>{{technician.email}}</td>
+                </tr>
+                <tr>
+                    <th>Mobile</th>
+                    <td>:</td>
+                    <td>{{technician.mobile}}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>:</td>
+                    <td>{{technician.department}}</td>
+                </tr>
+                <tr>
+                    <th>Residential Location</th>
+                    <td>:</td>
+                    <td>{{technician.residential_location}}</td>
+                </tr>             
+            </table>
+        </div>
+
+        <!-- Confirm Deletion Box -->
+        <div class="position-absolute border shadow shadow-danger px-3 pt-3" id="confirm-deletion" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <h4 class="text-danger">Deleting Technician.</h4>
+            <hr/>
+            <h6>Are your sure?</h6>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary text-light" data-dismiss="modal" onclick="document.getElementById('confirm-deletion').style.display='none'" style="width: 75px;">Cancel</button>
+                <a class="btn btn-danger text-light" href="{% url 'delete_technician' technician.pk %}" style="width: 75px;">Delete</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

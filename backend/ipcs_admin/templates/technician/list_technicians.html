@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'technicians' %}" role="tab" aria-controls="overview" aria-selected="true">Technicians</a>
+</li>
+{% endblock page-heading %}
+{% block blue-btn %}
+  <a class="btn btn-primary text-white me-0" href="{% url 'add_technician' %}">Add Technician</a> 
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% if technicians %}   
+        <div class="table-responsive">
+          <table class="table table-sm text-center">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Mobile</th>
+                <th>Department</th>
+                <th>Residential Location</th>
+                <th>Photo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for technician in technicians %}
+              <tr id="link-table" onclick="window.location='{% url 'technician' technician.pk %}'">
+                <td>{{forloop.counter}}</td>
+                <td>{{technician.name}}</td>
+                <td>{{technician.email}}</td>
+                <td>{{technician.mobile}}</td>
+                <td>{{technician.department}}</td>
+                <td>{{technician.residential_location}}</td>
+                <td>
+                  <img src="{{technician.photo.url}}" alt="technician image" height="50px">                  
+                </td>
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <div class="text-center text-danger text-uppercase">
+              <h5>No Technician</h5>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

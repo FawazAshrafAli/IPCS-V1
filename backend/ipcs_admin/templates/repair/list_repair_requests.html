@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'repair_requests' %}" role="tab" aria-controls="overview" aria-selected="true">Repair Requests</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!-- Messages -->
+        <div id="message-div">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+        
+        {% if repair_requests %}
+        <h4 class="text-uppercase">Repair Requests</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Serial</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for repair_request in repair_requests %}
+              <tr id="link-table" onclick="window.location='{% url 'repair_request' repair_request.id %}'">
+                  <td>{{repair_request.customer_name}}</td>
+                  <td>{{repair_request.datetime}}</td>
+                  <td>{{repair_request.item_name}}</td>
+                  <td>{{repair_request.serial_number}}</td>               
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+            <div class="text-center text-danger text-capitalize">
+                <h5>No repair request</h5>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

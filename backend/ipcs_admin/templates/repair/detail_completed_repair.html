@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'completed_repairs' %}" role="link" aria-controls="overview" aria-selected="false">Completed Repairs</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'completed_repair' completed_repair.pk %}" role="tab" aria-controls="overview" aria-selected="true">Completed Repair</a>
+  </li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Repair ID: {{completed_repair.pk}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">
+              
+              <tr>
+                <th colspan=3 class="text-primary text-uppercase">Repair Request Details</th>                
+              </tr>
+
+              <tr>
+                <th>Customer Name</th>
+                <td>:</td>
+                <td>{{completed_repair.customer_name}}</td>
+              </tr>
+              <tr>
+                <th>Email ID</th>
+                <td>:</td>
+                <td>{{completed_repair.email_id}}</td>
+              </tr>
+              <tr>
+                <th>Contact Number</th>
+                <td>:</td>
+                <td>{{completed_repair.contact_number}}</td>
+              </tr>
+              <tr>
+                <th>Alternative Number</th>
+                <td>:</td>
+                <td>{{completed_repair.alternative_number}}</td>
+              </tr>
+              <tr>
+                <th>Requested Date/time</th>
+                <td>:</td>
+                <td>{{completed_repair.datetime}}</td>
+              </tr>              
+              <tr>
+                <th>Address of Site</th>
+                <td>:</td>
+                <td>{{completed_repair.address_customer}}</td>
+              </tr>
+              <tr>
+                <th>Product Name</th>
+                <td>:</td>
+                <td>{{completed_repair.item_name}}</td>
+              </tr>               
+              <tr>
+                <th>Serial Number</th>
+                <td>:</td>
+                <td>{{completed_repair.serial_number}}</td>
+              </tr>              
+              <tr>
+                <th>Item Description</th>
+                <td>:</td>
+                <td>{{completed_repair.item_description}}</td>
+              </tr>
+
+              <tr>
+                <th colspan=3 class="text-primary text-uppercase">Repair Details</th>                
+              </tr>
+
+              <tr>
+                  <th>Repair Date</th>
+                  <td>:</td>
+                  <td>{{completed_repair.repair_date}}</td>
+              </tr>
+              <tr>
+                  <th>Technician</th>
+                  <td>:</td>
+                  <td>{{completed_repair.technician}}</td>
+              </tr>
+              <tr>
+                  <th>Starting Time</th>
+                  <td>:</td>
+                  <td>{{completed_repair.starting_time}}</td>
+              </tr>
+              <tr>
+                  <th>Ending Time</th>
+                  <td>:</td>
+                  <td>{{completed_repair.ending_time}}</td>
+              </tr>                
+            </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

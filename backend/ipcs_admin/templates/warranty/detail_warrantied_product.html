@@ -1,0 +1,132 @@
+{% extends "base.html" %}  
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'warrantied_products' %}" role="link" aria-controls="overview" aria-selected="False">Warrantied products</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'warrantied_product' warrantied_product.pk %}" role="tab" aria-controls="overview" aria-selected="true">Warrantied Product</a>
+  </li>
+{% endblock page-heading %}
+{% block blue-btn %}
+<div class="btn-wrapper d-flex me-0 ">
+    <a href="{% url 'update_warranty' warrantied_product.pk %}" class="btn btn-warning" id="update-btn" style="display: none;">Update</a>
+    <button class="btn btn-danger" id="delete-btn" onclick="document.getElementById('confirm-deletion').style.display='block'" style="display: none;">Delete</button>
+    <button class="btn btn-info" id="edit-toggle-btn" onclick="responsiveEditionDiv()">Edit</button>
+</div>
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+    <div class="col grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Warranty ID: {{warrantied_product.pk}}</h4>
+          <div class="table-responsive">
+              <table class="table table-sm">            
+                  <tr>
+                      <th>Customer Name</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.customer_name}}</td>
+                  </tr>
+                  <tr>
+                      <th>Date of Billing</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.date}}</td>
+                  </tr>
+                    <tr>
+                      <th>Warranty Duration</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.duration}}</td>
+                  </tr>
+                  <tr>
+                      <th>Email ID</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.email_id}}</td>
+                  </tr>
+                  <tr>
+                      <th>Contact Number</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.contact_number}}</td>
+                  </tr>
+                  <tr>
+                    <th>Alternative Number</th>
+                    <td>:</td>
+                    <td>{{warrantied_product.alternative_number}}</td>
+                </tr>
+                  <tr>
+                      <th>Product</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.product}}</td>
+                  </tr>
+                  <tr>
+                      <th>Billing Name</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.billing_name}}</td>
+                  </tr>
+                  <tr>
+                      <th>Invoice Number</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.invoice_number}}</td>
+                  </tr>
+                  <tr>
+                      <th>Serial Number</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.serial_number}}</td>
+                  </tr>
+                  <tr>
+                      <th>Model Number</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.model_number}}</td>
+                  </tr>
+                  <tr>
+                      <th>Expiry Date</th>
+                      <td>:</td>
+                      <td>{{warrantied_product.expiry_date}}</td>
+                  </tr>                  
+              </table>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- confirm deletion box -->
+<div class="position-absolute border shadow shadow-danger px-3 pt-3" id="confirm-deletion" style= "display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <h4 class="text-danger">Deleting product.</h4>
+    <hr/>
+    <h6>Are your sure?</h6>
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-primary text-light" data-dismiss="modal" onclick="document.getElementById('confirm-deletion').style.display='none'" style="width: 75px;">Cancel</button>
+        <a class="btn btn-danger text-light" href="{% url 'delete_warranty' warrantied_product.pk %}" style="width: 75px;">Delete</a>
+    </div>
+</div>
+<script>
+    function responsiveEditionDiv() {
+        var deleteBtnDisplay = document.getElementById('delete-btn').style.display
+        var updateBtnDisplay = document.getElementById('update-btn').style.display
+        if (deleteBtnDisplay == 'none' && updateBtnDisplay == 'none'){
+            document.getElementById('delete-btn').style.display='block';
+            document.getElementById('update-btn').style.display='block';
+            document.getElementById('edit-toggle-btn').innerHTML='Cancel';
+            document.getElementById('edit-toggle-btn').className+='btn btn-light';
+        } else {
+            document.getElementById('delete-btn').style.display='none';
+            document.getElementById('update-btn').style.display='none';
+            document.getElementById('edit-toggle-btn').innerHTML='Edit';
+            document.getElementById('edit-toggle-btn').className+='btn btn-info';
+        }
+
+    }
+</script>
+{% endblock content %}
+
+

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link" id="product-tab" data-bs-toggle="link" href="{% url 'clients' %}" role="link" aria-selected="false">Clients</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="product-detail-tab" data-bs-toggle="tab" href="{% url 'client' client.pk %}" role="tab" aria-controls="overview" aria-selected="true">{{client.name}}</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<div class="d-flex justify-content-between align-items-center px-2">
+    <h6 class=""><b>Client Name :</b> {{client.name}}</h6>
+    <div>
+        <a href="{% url 'update_client' client.pk %}" class="btn btn-warning">Update</a>
+        <button class="btn btn-danger" onclick="document.getElementById('confirm-deletion').style.display='block'">Delete</button>
+    </div>
+</div>
+<div class="position-absolute border shadow shadow-danger px-3 pt-3" id="confirm-deletion" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <h4 class="text-danger">Deleting client.</h4>
+    <hr/>
+    <h6>Are your sure?</h6>
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-primary text-light" data-dismiss="modal" onclick="document.getElementById('confirm-deletion').style.display='none'" style="width: 75px;">Cancel</button>
+        <a class="btn btn-danger text-light" href="{% url 'delete_client' client.pk %}" style="width: 75px;">Delete</a>
+    </div>
+</div>
+{% if client.image %}
+    <br/>
+    <img src="{{client.image.url}}" alt="Client Image">
+{% endif %}
+
+{% endblock content %}

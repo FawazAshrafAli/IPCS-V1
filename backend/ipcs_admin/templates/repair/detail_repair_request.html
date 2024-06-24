@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'repair_requests' %}" role="link" aria-controls="overview" aria-selected="true">Repair Requests</a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'repair_request' repair_request.id %}" role="tab" aria-controls="overview" aria-selected="true">Repair Request - {{repair_request.customer_name}}</a>
+  </li>
+{% endblock page-heading %}
+{% block blue-btn %}
+{% if not is_scheduled %}
+<a class="btn btn-primary text-white me-0" href="{% url 'schedule_repair' repair_request.pk %}">Schedule Repair</a> 
+{% endif %}
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Repair ID: {{repair_request.pk}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">            
+                <tr>
+                    <th>Customer Name</th>
+                    <td>:</td>
+                    <td>{{repair_request.customer_name}}</td>
+                </tr>
+                <tr>
+                    <th>Address of Customer</th>
+                    <td>:</td>
+                    <td>{{repair_request.address_customer}}</td>
+                </tr>
+                <tr>
+                    <th>Email ID</th>
+                    <td>:</td>
+                    <td>{{repair_request.email_id}}</td>
+                </tr>
+                <tr>
+                    <th>Date and Time</th>
+                    <td>:</td>
+                    <td>{{repair_request.datetime}}</td>
+                </tr>
+                <tr>
+                    <th>Item Name</th>
+                    <td>:</td>
+                    <td>{{repair_request.item_name}}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td>:</td>
+                    <td>{{repair_request.contact_number}}</td>
+                </tr>
+                <tr>
+                    <th>Serial Number</th>
+                    <td>:</td>
+                    <td>{{repair_request.serial_number}}</td>
+                </tr>
+                <tr>
+                    <th>Item Description</th>
+                    <td>:</td>
+                    <td>{{repair_request.item_description}}</td>
+                </tr>                               
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'warrantied_products' %}" role="tab" aria-controls="overview" aria-selected="true">Warrantied products</a>
+</li>
+{% endblock page-heading %}
+{% block blue-btn %}
+<a class="btn btn-primary text-white me-0" href="{% url 'add_warranty' %}">Add Warranty</a>                      
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% if warrantied_products %}   
+        <h4 class="text-uppercase">Warranties</h4>
+        <div class="table-responsive">
+          <table class="table table-sm text-center">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Purchase Date</th>
+                <th>Customer Name</th>
+                <th>Warranty Duration</th>
+                <th>Contact Number</th>
+                <th>Email ID</th>
+                <th>Expiry Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for warrantied_product in warrantied_products %}
+              <tr id="link-table" onclick="window.location='{% url 'warrantied_product' warrantied_product.pk %}'">
+                <td>{{warrantied_product.id}}</td>
+                <td>{{warrantied_product.date}}</td>
+                <td>{{warrantied_product.customer_name}}</td>
+                <td>{{warrantied_product.duration}}</td>                
+                <td>{{warrantied_product.contact_number}}</td>                
+                <td>{{warrantied_product.email_id}}</td>
+                <td>{{warrantied_product.expiry_date}}</td>
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <div class="text-center text-danger text-uppercase">
+              <h5>No warrantied product</h5>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

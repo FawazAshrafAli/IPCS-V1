@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'service_requests' %}" role="link" aria-controls="overview" aria-selected="false">Service Requests</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'service_request' service_request.pk %}" role="tab" aria-controls="overview" aria-selected="true">Service Request</a>
+  </li>
+{% endblock page-heading %}
+{% block blue-btn %}
+{% if not is_scheduled %}
+<a class="btn btn-primary text-white me-0" href="{% url 'schedule_service' service_request.pk %}">Schedule Service</a> 
+{% endif %} 
+{% endblock blue-btn %} 
+{% block content %}
+<!-- Messages -->
+<div id="message-div">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<!-- Table -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Service ID: {{service_request.pk}}</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">            
+                <tr>
+                    <th>Application Date and time</th>
+                    <td>:</td>
+                    <td>{{service_request.application_datetime}}</td>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <td>:</td>
+                    <td>{{service_request.customer_name}}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td>:</td>
+                    <td>{{service_request.contact_number}}</td>
+                </tr>
+                <tr>
+                    <th>Alternative Number</th>
+                    <td>:</td>
+                    <td>{{service_request.alternative_number}}</td>
+                </tr>
+                <tr>
+                    <th>Email ID</th>
+                    <td>:</td>
+                    <td>{{service_request.email}}</td>
+                </tr>
+                <tr>
+                    <th>Item Name</th>
+                    <td>:</td>
+                    <td>{{service_request.item_name}}</td>
+                </tr>
+                <tr>
+                    <th>Serial Number</th>
+                    <td>:</td>
+                    <td>{{service_request.serial_number}}</td>
+                </tr>
+                <tr>
+                    <th>Preffered Date</th>
+                    <td>:</td>
+                    <td>{{service_request.prefered_date}}</td>
+                </tr>
+                <tr>
+                    <th>Service Description</th>
+                    <td>:</td>
+                    <td>{{service_request.service_description}}</td>        
+                </tr>                
+            </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

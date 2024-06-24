@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'service_requests' %}" role="link" aria-controls="overview" aria-selected="false">Service Requests</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link ps-0" id="home-tab" data-bs-toggle="link" href="{% url 'service_request' service_request.pk %}" role="link" aria-controls="overview" aria-selected="false">Service Request</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'schedule_service' service_request.pk %}" role="tab" aria-controls="overview" aria-selected="true">Service Request</a>
+  </li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Table -->
+<div class="row">
+    <div class="col grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                    <th>Application Date/Time</th>
+                    <th>Customer Name</th>
+                    <th>Contact Number</th>
+                    <th>Alternative Number</th>
+                    <th>Email ID</th>
+                    <th>Item Name</th>
+                    <th>Serial Number</th>                    
+                    <th>Preffered Date</th>
+                    <th>Service Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="link-table">
+                    <td>{{service_request.application_datetime}}</td>
+                    <td>{{service_request.customer_name}}</td>
+                    <td>{{service_request.contact_number}}</td>
+                    <td>{{service_request.alternative_number}}</td>
+                    <td>{{service_request.email}}</td>
+                    <td>{{service_request.item_name}}</td>
+                    <td>{{service_request.serial_number}}</td>                    
+                    <td>{{service_request.prefered_date}}</td>
+                    <td>{{service_request.service_description}}</td>
+                </tr>                          
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Form -->
+<div class="row">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">        
+        <h4 class="card-title">Schedule Service</h4>
+
+        <!-- Messages -->
+        <div id="message-div">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+        <!-- Messages End -->
+
+        <form class="forms-sample form" method="POST" action="{% url 'schedule_service' service_request.pk %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="service_date" class="form-label">Servicing Date</label>
+            <input type="date" class="form-control" name="service_date" id="service_date" value="{{preffered_date}}" required>
+        </div>        
+        <div class="form-group">
+            <label for="technician">Technician</label>
+            <select class="form-control" name="technician" id="technician" required>
+                <option value="" selected disabled hidden>--- Select Technician --</option>
+                {% for technician in technicians %}
+                <option value="{{technician.pk}}">{{technician.name}}</option>
+                {% endfor %}
+            </select>
+        </div>                
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="starting_time" class="form-label">Starting Time</label>
+                    <input type="time" class="form-control" name="starting_time" id="starting_time" value="10:00:00" required>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="ending_time" class="form-label">Ending Time</label>
+                    <input type="time" class="form-control" name="ending_time" id="ending_time" value="12:00:00" required>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+          <button id="btn" type="submit" class="btn btn-primary me-2">Schedule Service</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

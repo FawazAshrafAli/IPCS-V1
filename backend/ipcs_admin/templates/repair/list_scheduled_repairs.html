@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block page-heading %}
+<li class="nav-item">
+  <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="{% url 'scheduled_repairs' %}" role="tab" aria-controls="overview" aria-selected="true">Scheduled Repairs</a>
+</li>
+{% endblock page-heading %}
+{% block content %}
+<!-- Table -->
+<div class="row px-2">
+  <div class="col grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!-- Messages -->
+        <div id="message-div">
+          {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+        </div>
+        
+        {% if scheduled_repairs %}
+        <h4 class="text-uppercase">Scheduled Repair Requests</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                  <th>Repair Request</th>
+                  <th>Scheduled Date</th>
+                  <th>Technician</th>
+                  <th>Starting Time</th>
+                  <th>Ending Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for scheduled_repair in scheduled_repairs %}
+              <tr id="link-table" onclick="window.location='{% url 'scheduled_repair' scheduled_repair.pk %}'">
+                  <td>{{scheduled_repair.repair_request}}</td>
+                  <td>{{scheduled_repair.repair_date}}</td>
+                  <td>{{scheduled_repair.technician}}</td>
+                  <td>{{scheduled_repair.starting_time}}</td>
+                  <td>{{scheduled_repair.ending_time}}</td>
+              </tr>
+              {% endfor %}                            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+            <div class="text-center text-danger text-uppercase">
+                <h5>No Scheduled Repair</h5>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
